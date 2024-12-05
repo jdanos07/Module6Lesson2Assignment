@@ -3,8 +3,8 @@ from marshmallow import ValidationError, fields
 from mysqlConnect import connect_database, Error
 from flask_marshmallow import Marshmallow
 
-app = Flask(__name__)
-ma = Marshmallow(app)
+app2 = Flask(__name__)
+ma = Marshmallow(app2)
 
 class MemberSchema(ma.Schema):
     name = fields.String(required=True)
@@ -16,11 +16,11 @@ class MemberSchema(ma.Schema):
 member_schema = MemberSchema()
 members_schema = MemberSchema(many=True)
 
-@app.route('/')
+@app2.route('/')
 def home():
     return "Fitness Center Database"
 
-@app.route('/members', methods=['POST'])
+@app2.route('/members', methods=['POST'])
 def add_member():
     try:
         member_data = member_schema.load(request.json)
@@ -54,7 +54,7 @@ def add_member():
             cursor.close()
             conn.close()
 
-@app.route('/members', methods=['GET'])
+@app2.route('/members', methods=['GET'])
 def get_members():
     try:
         conn = connect_database()
@@ -79,7 +79,7 @@ def get_members():
             cursor.close()
             conn.close()
 
-@app.route('/members/<int:id>', methods=['GET'])
+@app2.route('/members/<int:id>', methods=['GET'])
 def get_member(id):
     try:
         conn = connect_database()
@@ -109,7 +109,7 @@ def get_member(id):
             cursor.close()
             conn.close()
 
-@app.route('/members/<int:id>', methods=['PUT'])
+@app2.route('/members/<int:id>', methods=['PUT'])
 def update_member(id):
     try:
         member_data = member_schema.load(request.json)
@@ -144,7 +144,7 @@ def update_member(id):
             cursor.close()
             conn.close()
 
-@app.route('/members/<int:id>', methods=['DELETE'])
+@app2.route('/members/<int:id>', methods=['DELETE'])
 def delete_member(id):
     try:
         conn = connect_database()
@@ -171,5 +171,5 @@ def delete_member(id):
 
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app2.run(debug=True)
 

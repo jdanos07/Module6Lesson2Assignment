@@ -4,8 +4,8 @@ from flask import Flask
 from flask_marshmallow import Marshmallow
 from marshmallow import fields
 
-app = Flask(__name__)
-ma = Marshmallow(app)
+app1 = Flask(__name__)
+ma = Marshmallow(app1)
 
 class MemberSchema(ma.Schema):
     name = fields.String(required=True)
@@ -18,9 +18,9 @@ member_schema = MemberSchema()
 members_schema = MemberSchema(many=True)
 
 
-# @app.route('/')
-# def home():
-#     return "Fitness Center Database"
+@app1.route('/')
+def home():
+    return "Fitness Center Database"
 
-# if __name__=='__main__':
-#     app.run(debug=True)
+if __name__=='__main__':
+    app1.run(debug=True)
